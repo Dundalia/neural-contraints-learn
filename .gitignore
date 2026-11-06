@@ -1,0 +1,11 @@
+# large or machine-specific data; a small copy lives in results/ (scripts/build_results.py)
+outputs/
+artifacts/
+logs/
+resources/
+.pytest_cache/
+__pycache__/
+*.pyc
+*.bak*
+# campaign marker files
+.v[0-9]*

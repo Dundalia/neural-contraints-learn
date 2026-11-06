@@ -1,0 +1,26 @@
+{
+  "model": "google/gemma-4-31B-it",
+  "layers": [
+    7,
+    13,
+    20,
+    27,
+    33,
+    40,
+    47,
+    53
+  ],
+  "num_layers": 60,
+  "hidden": 5376,
+  "n_fit_turns": 1200,
+  "n_val_turns": 600,
+  "n_fit_samples": 6091,
+  "n_val_samples": 4304,
+  "samples_per_turn_fit": 5.08,
+  "logprob_median_fit_target_reaching": -0.012530997395515442,
+  "logprob_median_val_random": -1.8601171970367432,
+  "ambiguous_fraction_fit": 0.7066163191594156,
+  "reads_bytes": 894136320,
+  "letter_dist_missing_frac_fit": 0.24166803480545065,
+  "letter_dist_missing_frac_val": 0.1421933085501859
+}

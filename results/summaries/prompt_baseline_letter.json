@@ -1,0 +1,10 @@
+{
+  "unfitted_target_direction": 0.562084409903035,
+  "unfitted_target_direction_deg": 27.979867118301936,
+  "bin_conditional_mean": 0.5190628730792618,
+  "geometry_ridge": 0.5574270623988435,
+  "geometry_ridge_alpha": 1.0,
+  "geometry_ridge_deg": 30.185522395764437,
+  "best_prompt_only": 0.562084409903035,
+  "best_prompt_only_source": "unfitted_target_direction"
+}

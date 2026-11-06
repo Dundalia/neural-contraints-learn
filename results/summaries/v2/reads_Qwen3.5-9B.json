@@ -1,0 +1,26 @@
+{
+  "model": "Qwen/Qwen3.5-9B",
+  "layers": [
+    4,
+    7,
+    11,
+    14,
+    18,
+    21,
+    25,
+    28
+  ],
+  "num_layers": 32,
+  "hidden": 4096,
+  "n_fit_turns": 1200,
+  "n_val_turns": 600,
+  "n_fit_samples": 5076,
+  "n_val_samples": 3796,
+  "samples_per_turn_fit": 4.23,
+  "logprob_median_fit_target_reaching": -0.3687116503715515,
+  "logprob_median_val_random": -1.8212326765060425,
+  "ambiguous_fraction_fit": 0.7178881008668243,
+  "reads_bytes": 581435392,
+  "letter_dist_missing_frac_fit": 0.004137115839243499,
+  "letter_dist_missing_frac_val": 0.0023709167544783984
+}

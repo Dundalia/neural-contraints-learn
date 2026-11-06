@@ -1,0 +1,22 @@
+run: qwen3.5-9b_L28_pop13_intent
+model: Qwen3.5-9B
+decoder fit to: model intent
+layer: 28
+coordinate population (draw): 13
+role: corrected decoder, first population
+sweep directory: outputs/v7q_d13
+calibration artifacts: artifacts/v7q
+
+sessions written: 1
+perturbed: 1   control: 0
+usable for the grid analysis (>= 40 perturbation trials): 0
+truncated below that: 1
+
+CAVEAT ON ANY CURVE GROUPED BY ALIGNMENT
+The grid is triangular for two reasons, both hatched in 03_cells.png. A cell needs alignment >=
+cos^2(theta), so low alignment exists only at large rotation; and it needs cos^2(psi) >= 0.30^2, a
+floor that stops the whole rotation tilting out of the manifold and leaving a merely SCALED copy of
+the original mapping, which measures ~3 degrees of velocity change and is not a perturbation at all.
+At alignment 0.1 and rotation 78 the first condition holds and the second does not. Curves grouped by alignment in 01_dynamics.png therefore pool different rotations
+and are NOT difficulty-matched. Alignment effects are tested in the matched effective-rotation
+bands reported by scripts/compare_draws.py, which is the only place that confound is handled.

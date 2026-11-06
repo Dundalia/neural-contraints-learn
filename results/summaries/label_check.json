@@ -1,0 +1,97 @@
+{
+  "n_turns": 1000,
+  "n_positions": 4224,
+  "layers": [
+    21,
+    28
+  ],
+  "n_coords": 512,
+  "missing_letter_frac": 0.004261363636363636,
+  "ambiguous_frac": 0.7199337121212122,
+  "median_commitment": 0.895438861987887,
+  "median_commitment_ambiguous": 0.8424646056641746,
+  "baselines": {
+    "old_letter": {
+      "target_direction_unfitted": 0.5690931056297659,
+      "target_direction_deg": 27.466665370289316,
+      "bin_conditional_mean": 0.5262988519967322,
+      "geometry_ridge": 0.5625229094435308,
+      "geometry_ridge_alpha": 10.0,
+      "best_prompt_only": 0.5690931056297659
+    },
+    "new_intent": {
+      "target_direction_unfitted": 0.7938891451412206,
+      "target_direction_deg": 15.195245559863945,
+      "bin_conditional_mean": 0.7609002588909192,
+      "geometry_ridge": 0.7957639805065257,
+      "geometry_ridge_alpha": 10.0,
+      "best_prompt_only": 0.7957639805065257,
+      "match_unfitted_target": {
+        "acc": 0.7656804733727811,
+        "acc_ambiguous": 0.6780238500851788,
+        "acc_unambiguous": 0.9651162790697675,
+        "acc_where_prompt_disagrees": 0.0,
+        "n_where_prompt_disagrees": 198
+      },
+      "match_geometry_ridge": {
+        "acc": 0.7763313609467456,
+        "acc_ambiguous": 0.6933560477001703,
+        "acc_unambiguous": 0.9651162790697675,
+        "acc_where_prompt_disagrees": 0.09090909090909091,
+        "n_where_prompt_disagrees": 198
+      },
+      "frac_prompt_disagrees_with_model": 0.23431952662721894,
+      "match_majority_class": 0.2816568047337278
+    }
+  },
+  "readouts": {
+    "layer21_old_letter": {
+      "r2": 0.4951996652758902,
+      "alpha": 1000.0,
+      "median_angle_deg": 29.60257317596642,
+      "gap_over_target": -0.07389344035387568,
+      "gap_over_unfitted": -0.07389344035387568
+    },
+    "layer21_new_intent": {
+      "r2": 0.9300664421499276,
+      "alpha": 100.0,
+      "median_angle_deg": 8.1523195293138,
+      "gap_over_target": 0.13430246164340187,
+      "gap_over_unfitted": 0.13617729700870707,
+      "match": {
+        "acc": 0.914792899408284,
+        "acc_ambiguous": 0.8909710391822828,
+        "acc_unambiguous": 0.9689922480620154,
+        "acc_where_prompt_disagrees": 0.7727272727272727,
+        "n_where_prompt_disagrees": 198
+      }
+    },
+    "layer28_old_letter": {
+      "r2": 0.5232692090634647,
+      "alpha": 1000.0,
+      "median_angle_deg": 27.216401741459173,
+      "gap_over_target": -0.04582389656630115,
+      "gap_over_unfitted": -0.04582389656630115
+    },
+    "layer28_new_intent": {
+      "r2": 0.9745187148752227,
+      "alpha": 100.0,
+      "median_angle_deg": 4.88006996399663,
+      "gap_over_target": 0.17875473436869693,
+      "gap_over_unfitted": 0.18062956973400213,
+      "match": {
+        "acc": 0.9562130177514793,
+        "acc_ambiguous": 0.9454855195911414,
+        "acc_unambiguous": 0.9806201550387597,
+        "acc_where_prompt_disagrees": 0.898989898989899,
+        "n_where_prompt_disagrees": 198
+      }
+    }
+  },
+  "verdict": {
+    "best_gap_new_label": 0.17875473436869693,
+    "gap_today_old_label": -0.04582389656630115,
+    "gap_is_measured_against": "best_prompt_only (max of unfitted, bin-mean, geometry-ridge)",
+    "note": "A POSITIVE gap on the new label means the activations carry intent the prompt does not, which is the precondition for the whole experiment. Compare against the old-label gap, which is negative today (no decoder beats the target)."
+  }
+}

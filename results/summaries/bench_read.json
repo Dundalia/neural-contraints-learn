@@ -1,0 +1,75 @@
+{
+  "model": "google/gemma-4-31B-it",
+  "n_ctx": 18009,
+  "span": 5,
+  "layer": 53,
+  "paths": {
+    "full_batch1": {
+      "total_s": 10.467967987060547,
+      "per_session_s": 10.467967987060547
+    },
+    "full_batch2": {
+      "total_s": 20.812471866607666,
+      "per_session_s": 10.406235933303833
+    },
+    "cached": {
+      "total_s": 0.6684086322784424,
+      "per_session_s": 0.6684086322784424,
+      "vs_full": {
+        "max_abs": 0.5,
+        "mean_abs": 0.011241001742457719,
+        "rel": 0.007407407407407408,
+        "min_cos": 0.9998715966300332,
+        "shape": [
+          6,
+          5376
+        ]
+      },
+      "decoded_velocity": {
+        "max_abs_delta": 0.03871469936219465,
+        "max_angle_deg": 0.806140963253549
+      }
+    },
+    "generation": {
+      "total_s": 10.008583068847656,
+      "per_session_s": 10.008583068847656,
+      "captured_positions": 18008,
+      "generated": "r r r r r",
+      "covers_decode": true,
+      "vs_full": {
+        "max_abs": 17.25,
+        "mean_abs": 0.5786496344364769,
+        "rel": 0.25555555555555554,
+        "min_cos": 0.6040144511617125,
+        "shape": [
+          6,
+          5376
+        ]
+      },
+      "decoded_velocity": {
+        "max_abs_delta": 1.3454724672967426,
+        "max_angle_deg": 28.384392518409047
+      }
+    },
+    "generation_cached": {
+      "total_s": 0.2742283344268799,
+      "per_session_s": 0.2742283344268799,
+      "captured_positions": 24,
+      "generated": "r r r r r",
+      "vs_full": {
+        "max_abs": 18.0,
+        "mean_abs": 0.577967713815428,
+        "rel": 0.26666666666666666,
+        "min_cos": 0.6015571435624142,
+        "shape": [
+          6,
+          5376
+        ]
+      },
+      "decoded_velocity": {
+        "max_abs_delta": 1.325938697647883,
+        "max_angle_deg": 28.311581191707603
+      }
+    }
+  }
+}

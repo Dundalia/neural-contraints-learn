@@ -1,0 +1,54 @@
+{
+  "n_turns": 40,
+  "n_positions": 174,
+  "layers": [
+    21,
+    28
+  ],
+  "n_coords": 128,
+  "missing_letter_frac": 0.09195402298850575,
+  "ambiguous_frac": 0.7586206896551724,
+  "median_commitment": 0.8987129006001824,
+  "median_commitment_ambiguous": 0.8570202466941599,
+  "baselines": {
+    "old_letter": {
+      "target_direction_unfitted": 0.6008452045863737,
+      "target_direction_deg": 24.136865192907756
+    },
+    "new_intent": {
+      "target_direction_unfitted": 0.8110740204717537,
+      "target_direction_deg": 12.01525539073989
+    }
+  },
+  "readouts": {
+    "layer21_old_letter": {
+      "r2": 0.22298915628564753,
+      "alpha": 100.0,
+      "median_angle_deg": 31.115391341543813,
+      "gap_over_target": -0.37785604830072617
+    },
+    "layer21_new_intent": {
+      "r2": 0.8040062198176782,
+      "alpha": 10.0,
+      "median_angle_deg": 11.200194089915772,
+      "gap_over_target": -0.007067800654075529
+    },
+    "layer28_old_letter": {
+      "r2": 0.35884622931001375,
+      "alpha": 1000000.0,
+      "median_angle_deg": 19.644090135528153,
+      "gap_over_target": -0.24199897527635994
+    },
+    "layer28_new_intent": {
+      "r2": 0.9358580662048952,
+      "alpha": 10.0,
+      "median_angle_deg": 9.863377233360097,
+      "gap_over_target": 0.1247840457331415
+    }
+  },
+  "verdict": {
+    "best_gap_new_label": 0.1247840457331415,
+    "gap_today_old_label": -0.24199897527635994,
+    "note": "A POSITIVE gap on the new label means the activations carry intent the prompt does not, which is the precondition for the whole experiment. Compare against the old-label gap, which is negative today (no decoder beats the target)."
+  }
+}
