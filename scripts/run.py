@@ -28,7 +28,6 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT.parent / "llm-neurofeedback"))
 
 from nc import labels as lb                                              # noqa: E402
 from nc import manifold as mf                                            # noqa: E402
@@ -224,7 +223,7 @@ def main():
               f"{ {k: round(v, 1) for k, v in sorted(target_dev.items())} }")
     print(f"[run] mode={a.mode} layer={layer} sessions={a.sessions} batch={a.batch}")
 
-    from neurofeedback.backends.vllm_lens_backend import VLLMLensBackend, VLLMLensConfig
+    from nc.backends.vllm_lens_backend import VLLMLensBackend, VLLMLensConfig
     backend = VLLMLensBackend(VLLMLensConfig(
         model_name=a.model, gpu_memory_utilization=a.gpu_frac,
         max_model_len=a.max_model_len, enable_prefix_caching=True))

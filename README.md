@@ -151,7 +151,10 @@ nc/                 the library
   labels.py         the intent label (model's own next-letter distribution), prompt-only baselines
   metrics.py        binning, z-scoring, learning metrics
   session.py        closed-loop lockstep session runner, checkpointing, stuck/repetition detectors
-tests/              105 unit tests, no GPU needed
+  backends/         activation reader: vLLM + vllm-lens residual-stream capture (vendored)
+tests/              124 unit tests, no GPU needed
+vendor/             optional vllm-lens patch for prefix-cached reads (only scripts/bench_equiv.py needs it)
+requirements.txt    pinned versions
 scripts/
   calibrate.py      stage 1 (GPU): teacher-forced reads, caches activations and labels
   fit_draws.py      stage 2 (CPU): per-draw manifold + decoder + diagnostics
@@ -181,12 +184,13 @@ In the trajectory figures, `sequence_a0.7_s001.png` means alignment 0.7, session
 
 ## Running it
 
-- **Environment:** Python 3.12 with vLLM (the original env was `MATS/venv-vllm`, uv-managed), `numpy`, `scipy`, `scikit-learn`, `torch`, `transformers`, `pytest`.
+- **Environment:** Python 3.12, CUDA 12. The repo is self-contained. The activation reader (vLLM plus the `vllm-lens` plugin) is vendored in `nc/backends/`, copied from Davide's private `llm-neurofeedback` repo in the exact version all runs used, so no sibling repo is needed.
 - **Hardware:** one A100-80GB is enough for Qwen3.5-9B.
-- **Hard-coded paths:** many scripts contain absolute paths to Davide's Mila scratch (`/network/scratch/b/baldelld/MATS/...`); adjust them.
+- **Hard-coded paths:** the Python code has none; scripts resolve paths from the repo root. Only the SLURM campaign scripts (`scripts/*_campaign.sh`, `*_sbatch.sh`) contain absolute paths to Davide's Mila scratch; adjust them if you use them.
 
 ```bash
-python -m pytest tests/ -q                                   # no GPU
+pip install -r requirements.txt                              # pinned versions used for all runs
+python -m pytest tests/ -q                                   # no GPU, 124 tests
 
 python scripts/calibrate.py --model Qwen/Qwen3.5-9B --n-fit 1200 --n-val 600 --n-depths 8
 python scripts/fit_draws.py --reads artifacts/reads_Qwen3.5-9B.npz --draws 20

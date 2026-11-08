@@ -26,7 +26,6 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT.parent / "llm-neurofeedback"))
 
 from nc.task import BoardConfig, Trial, render_user_turn, render_trial_end   # noqa: E402
 
@@ -39,7 +38,7 @@ def main():
     a = ap.parse_args()
 
     from transformers import AutoTokenizer                                   # noqa: PLC0415
-    from neurofeedback.backends.vllm_lens_backend import (                   # noqa: PLC0415
+    from nc.backends.vllm_lens_backend import (                   # noqa: PLC0415
         FAMILY_CONFIGS, build_teacher_forced_ids, detect_family)
 
     tok = AutoTokenizer.from_pretrained(a.model, trust_remote_code=True)

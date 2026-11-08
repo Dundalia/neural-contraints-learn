@@ -1,0 +1,64 @@
+--- a/_activations_plugin.py
++++ b/_activations_plugin.py
+@@ -168,9 +168,12 @@
+ 
+     # Allow explicit prefix-cache bypass via extra_args.
+     skip_kv_cache = extra.pop("skip_reading_prefix_cache", None)
++    # span_prefix_cache (FORK): opt in to REUSE the prefix cache for the (already-cached) context and
++    # capture only the freshly-computed query = the response-span tail -> O(span) reads, not O(context).
++    span_prefix = extra.pop("span_prefix_cache", None)
+ 
+     needs_hooks = wants_activations or steering_vectors is not None
+-    if needs_hooks or skip_kv_cache:
++    if (needs_hooks and not span_prefix) or skip_kv_cache:
+         # Hooks rely on forward passes firing; prefix-cached tokens skip
+         # computation entirely, so force a fresh prefill for this request.
+         effective_params.skip_reading_prefix_cache = True
+@@ -198,7 +201,8 @@
+                 if activations is not None:
+                     n_prompt = len(output.prompt_token_ids)
+                     n_gen = len(output.outputs[0].token_ids)
+-                    _trim_activations(activations, n_prompt + n_gen - 1)
++                    n_cached = getattr(output, "num_cached_tokens", 0) or 0   # prefix-cache hit => fewer computed
++                    _trim_activations(activations, n_prompt - n_cached + n_gen - 1)
+                     output.activations = activations
+             yield output
+     finally:
+@@ -252,17 +256,23 @@
+                 sp.extra_args = {}
+             sp.extra_args["_steering_id"] = steering_id
+ 
+-    # Pop skip_reading_prefix_cache from extra_args for each request.
++    # Pop skip_reading_prefix_cache + span_prefix_cache from extra_args per request.
++    # span_prefix_cache (FORK): requests that opt in REUSE the prefix cache for the cached context and
++    # capture only the freshly-computed query = the response-span tail -> O(span) reads, not O(context).
+     any_skip_kv_cache = False
++    span_prefix = []
+     for sp in params_list:
+-        if (sp.extra_args or {}).pop("skip_reading_prefix_cache", None):
++        ea = sp.extra_args or {}
++        if ea.pop("skip_reading_prefix_cache", None):
+             any_skip_kv_cache = True
++        span_prefix.append(bool(ea.pop("span_prefix_cache", None)))
+ 
+     has_steering = len(steering_payloads) > 0
+     needs_hooks = wants_activations or has_steering
+     if needs_hooks or any_skip_kv_cache:
+-        for sp in params_list:
+-            sp.skip_reading_prefix_cache = True
++        for sp, spx in zip(params_list, span_prefix):
++            if not spx:                       # opted-in span_prefix requests intentionally reuse the cache
++                sp.skip_reading_prefix_cache = True
+ 
+     if needs_hooks and not getattr(self, "_hooks_installed", False):
+         self.collective_rpc("install_hooks")
+@@ -283,7 +293,8 @@
+             if activations is not None:
+                 n_prompt = len(output.prompt_token_ids)
+                 n_gen = len(output.outputs[0].token_ids)
+-                _trim_activations(activations, n_prompt + n_gen - 1)
++                n_cached = getattr(output, "num_cached_tokens", 0) or 0   # prefix-cache hit => fewer computed
++                _trim_activations(activations, n_prompt - n_cached + n_gen - 1)
+                 output.activations = activations
+ 
+     # Clean up steering data.

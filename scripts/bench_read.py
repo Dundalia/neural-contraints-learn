@@ -38,7 +38,6 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT.parent / "llm-neurofeedback"))
 
 from nc.task import BoardConfig, Trial, render_trial_end, render_user_turn   # noqa: E402
 
@@ -80,7 +79,7 @@ def main():
     ap.add_argument("--out", default=str(ROOT / "artifacts/bench_read.json"))
     a = ap.parse_args()
 
-    from neurofeedback.backends.vllm_lens_backend import (                   # noqa: PLC0415
+    from nc.backends.vllm_lens_backend import (                   # noqa: PLC0415
         VLLMLensBackend, VLLMLensConfig, build_teacher_forced_ids)
 
     cfg = BoardConfig()

@@ -38,7 +38,6 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
-sys.path.insert(0, str(ROOT.parent / "llm-neurofeedback"))
 
 from nc.task import ALPHABETS, BoardConfig                                   # noqa: E402
 from calibrate import read_chunked, simulate_turns                           # noqa: E402
@@ -173,7 +172,7 @@ def main():
     turns = simulate_turns(cfg, a.n_turns, random.Random(0), "fit")
     print(f"[check] {len(turns)} turns simulated ({time.time()-t0:.0f}s)", flush=True)
 
-    from neurofeedback.backends.vllm_lens_backend import VLLMLensBackend, VLLMLensConfig
+    from nc.backends.vllm_lens_backend import VLLMLensBackend, VLLMLensConfig
     backend = VLLMLensBackend(VLLMLensConfig(
         model_name=a.model, gpu_memory_utilization=a.gpu_frac,
         max_model_len=a.max_model_len, enable_prefix_caching=False))

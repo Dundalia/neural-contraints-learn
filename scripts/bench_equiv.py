@@ -33,7 +33,6 @@ import numpy as np
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
 sys.path.insert(0, str(ROOT / "scripts"))
-sys.path.insert(0, str(ROOT.parent / "llm-neurofeedback"))
 
 import nc.manifold as mf                                                     # noqa: E402
 from nc.task import BoardConfig, Trial, render_trial_end, render_user_turn   # noqa: E402
@@ -65,7 +64,7 @@ def main():
     ap.add_argument("--out", default=str(ROOT / "artifacts/bench_equiv.json"))
     a = ap.parse_args()
 
-    from neurofeedback.backends.vllm_lens_backend import (                   # noqa: PLC0415
+    from nc.backends.vllm_lens_backend import (                   # noqa: PLC0415
         VLLMLensBackend, VLLMLensConfig)
 
     # the REAL readout for this draw, so the angle reported is the quantity the loop consumes

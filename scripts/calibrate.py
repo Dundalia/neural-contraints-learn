@@ -39,7 +39,6 @@ import numpy as np
 
 ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT))
-sys.path.insert(0, str(ROOT.parent / "llm-neurofeedback"))
 
 from nc.task import (BoardConfig, Trial, render_trial_end, render_user_turn,  # noqa: E402
                      shortest_path)
@@ -252,7 +251,7 @@ def main():
               f"depth {min(t['depth'] for t in ts)}-{max(t['depth'] for t in ts)}, "
               f"trials/session ~{max(t['trial'] for t in ts)}", flush=True)
 
-    from neurofeedback.backends.vllm_lens_backend import VLLMLensBackend, VLLMLensConfig
+    from nc.backends.vllm_lens_backend import VLLMLensBackend, VLLMLensConfig
     backend = VLLMLensBackend(VLLMLensConfig(
         model_name=a.model, gpu_memory_utilization=a.gpu_frac,
         max_model_len=a.max_model_len, enable_prefix_caching=False,
